@@ -7,11 +7,30 @@ var addZero = function(i){
 	return i;
 };
 
+// timeNow function - returns current time string in hours and mins...
+// needs to be placed before reference to 'clockText JQ object'.... 
+// didn't work when at bottom of text file.
 var timeNow = function(){
+	// variables used within tineNow function
 	var now = new Date();
 	var h = addZero(now.getHours());
+		//h12 variable created to store 12 hour clock hours value
+	var h12 = h%12;
 	var m = addZero(now.getMinutes());
-	var timeString = h + ":" + m;
+	var timeString = h12 + ":" + m;
+		//variable isPM used to set pm indicator to on/off
+	var isPM = false;
+	
+	//conditional check of hours value sets isPM variable to true/false
+	if (now.getHours() > 11){
+		isPM = true;
+		$('.pm-indicator').css('display','visible');
+	}
+	else {
+		isPm =false;
+		$('.pm-indicator').css('display','none');
+	}
+
 	console.log(timeString);
 	return timeString;
 }
@@ -20,9 +39,7 @@ setInterval(function(){
 	clockText.text(timeNow())
 }, 1000);
 
-// $('.clock-text').append(timeNow);
-
-// *************************FUNCTIONS***********************************
+// *********************^^^ FUNCTIONS ^^^****************************************
 
 var outerShell = $('<div class="outer-shell"></div>');
 var innerShell = $('<div class="inner-shell"></div>');
@@ -41,7 +58,7 @@ var fmFrequency = $('<p class="fm-frequency">FM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;88
 var amFrequency = $('<p class="am-frequency">AM &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;53 &nbsp;65 &nbsp;80 &nbsp;100 &nbsp;130 &nbsp;165 &nbsp;&nbsp;&nbsp10kHz</p>');
 
 
-// ***********************ELEMENT VARIABLES******************************
+// *******************^^^ ELEMENT VARIABLES ^^^**********************************
 
 
 $('body').prepend(outerShell);
@@ -58,6 +75,10 @@ innerShell.append(amFrequency);
 clockScreen.prepend(pmIndicator);
 clockScreen.prepend(autoIndicator);
 clockScreen.prepend(clockText);
+
+// *******************^^^ JQUERY METHODS TO CREATE DOM ELEMENTS ^^^**************
+
+
 
 
 
