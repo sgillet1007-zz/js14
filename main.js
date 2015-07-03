@@ -1,5 +1,6 @@
 $(document).on('ready', function() {
 
+// string padding helper function
 var addZero = function(i){
 	if (i < 10) {
 		i = "0" + i;
@@ -11,12 +12,19 @@ var addZero = function(i){
 // needs to be placed before reference to 'clockText JQ object'.... 
 // didn't work when at bottom of text file.
 var timeNow = function(){
-	// variables used within tineNow function
+	
 	var now = new Date();
-	var h = addZero(now.getHours());
-		//h12 variable created to store 12 hour clock hours value
-	var h12 = h%12;
+	var h24 = addZero(now.getHours());
 	var m = addZero(now.getMinutes());
+
+	//h12 variable created to store 12 hour clock hours value
+	if (h24 === 12){
+			var h12 = 12;
+	}
+	else {
+		h12 = h24%12;
+	}
+	
 	var timeString = h12 + ":" + m;
 		//variable isPM used to set pm indicator to on/off
 	var isPM = false;
@@ -30,8 +38,6 @@ var timeNow = function(){
 		isPm =false;
 		$('.pm-indicator').css('display','none');
 	}
-
-	console.log(timeString);
 	return timeString;
 }
 
